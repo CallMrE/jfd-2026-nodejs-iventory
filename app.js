@@ -7,6 +7,7 @@ const c_beranda = require('./controller/c_beranda')
 app.use( express.urlencoded({extended:false}) )
 app.set('view engine', 'ejs')
 app.set('views', './view-html')
+app.use(express.static('public'))
 
 
 app.get('/', c_beranda.index)
