@@ -9,11 +9,10 @@ db.connect()
 
 module.exports =
 {
-  get_1_username: function () {
+  get_1_username: function (form_username) {
        let sql = mysql.format(
-                'SELECT * FROM user WHERE username'
+                'SELECT * FROM user WHERE username = ?', [form_username]
             )
-    
             return new Promise( function(resolve,reject) {
                 db.query(sql, function(errorSql, hasil) {
                     if (errorSql) {

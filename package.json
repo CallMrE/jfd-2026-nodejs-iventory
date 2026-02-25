@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "ejs": "^4.0.1",
     "express": "^5.2.1",
     "moment": "^2.30.1",
