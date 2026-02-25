@@ -13,6 +13,7 @@ app.use(express.static('public'))
 
 app.get('/', c_beranda.index)
 app.get('/login', c_auth.form_login)
+app.post('/auth/proses-login', c_auth.proses_login)
 
 app.listen(port, ()=>{
     console.log(`Aplikasi sudah siap, buka http://localhost:${port}`)
