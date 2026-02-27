@@ -4,6 +4,10 @@ const m_user = require('../model/m_user')
 module.exports = 
 {
   form_login: function (req,res) {
+    if (req.session.user) {
+      res.redirect('/dashboard')
+      return
+    } 
     res.render('auth/form-login',{
       req: req,
     }) //ejs
@@ -21,6 +25,7 @@ module.exports =
         // jika password cocok, maka redirect ke halam dasboard
         let password_benar = bcrypt.compareSync(form_password, password_db)
         if (password_benar) {
+          req.session.user = username_exist
           res.redirect('/dashboard')
         } else {
         res.redirect(`/login?msg=password salah`)
@@ -30,5 +35,12 @@ module.exports =
         res.redirect(`/login?msg=username tidak terdaftar`)
     }
       // jika password salah kita beri info eror + kembalikan ke login
+  },
+  cek_login: function (req,res,next) {
+    if (req.session.user) {
+      next()
+    } else {
+      res.redirect(`/login?msg=sesi sudah berahir silahkan login!`)
+    }
   }
 }
