@@ -1,0 +1,29 @@
+<%- include('../layout/menu-atas') %>
+  <%- include('../layout/menu-kiri') %>
+    <%- include('../layout/notif-message') %>
+
+      <h1>Tambah Produk Baru</h1>
+
+      <form action="/produk/insert" method="post">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Kode barang</label>
+              <input type="text" name="form_kode_barang" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Nama barang</label>
+              <input type="text" name="form_nama_barang" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Deskripsi</label>
+              <textarea name="form_deskripsi" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-save"></i>Simpan
+        </button>
+      </form>
+
+      <%- include('../layout/footer') %>

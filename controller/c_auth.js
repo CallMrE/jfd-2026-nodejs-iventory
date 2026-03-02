@@ -28,13 +28,13 @@ module.exports =
           req.session.user = username_exist
           res.redirect('/dashboard')
         } else {
+        // jika password salah kita beri info eror + kembalikan ke login
         res.redirect(`/login?msg=password salah`)
         }
     }else{
         // jika tidak ada usernamenya, kita beri info eror + kembali ke login
         res.redirect(`/login?msg=username tidak terdaftar`)
     }
-      // jika password salah kita beri info eror + kembalikan ke login
   },
   cek_login: function (req,res,next) {
     if (req.session.user) {

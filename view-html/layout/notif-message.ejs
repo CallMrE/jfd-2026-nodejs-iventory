@@ -1,0 +1,15 @@
+<% if (req.query.success_msg) { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong><i class="fa-solid fa-check-circle"></i></strong>
+    <%= req.query.success_msg %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %>
+
+    <% if (req.query.error_msg) { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><i class="fa-solid fa-exclamation-circle"></i></strong>
+        <%= req.query.error_msg %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>

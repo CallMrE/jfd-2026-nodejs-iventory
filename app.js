@@ -9,6 +9,7 @@ const c_auth    = require('./controller/c_auth')
 const cek_login = c_auth.cek_login
 const c_dashboard= require('./controller/c_dashboard')
 const c_master_produk   = require('./controller/c_master_produk')
+const c_karyawan = require('./controller/c_karyawan')
 
 app.use(session({
     secret: 'secret',
@@ -37,6 +38,12 @@ app.post('/auth/proses-login', c_auth.proses_login)
 
 app.get('/dashboard', cek_login, c_dashboard.index)
 app.get('/produk', cek_login, c_master_produk.index)
+app.get('/produk/tambah', cek_login, c_master_produk.form_tambah)
+app.post('/produk/insert', cek_login, c_master_produk.insert)
+
+// buat sendiri
+app.get('/karyawan', cek_login, c_karyawan.index)
+
 
 app.listen(port, ()=>{
     console.log(`Aplikasi sudah siap, buka http://localhost:${port}`)
