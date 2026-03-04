@@ -1,0 +1,7 @@
+<% if (typeof pesan_validasi_error !=='undefined' ) { %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong><i class="fa-solid fa-exclamation-triangle"></i></strong>
+        <%= pesan_validasi_error[0].msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>

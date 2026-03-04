@@ -39,7 +39,7 @@ app.post('/auth/proses-login', c_auth.proses_login)
 app.get('/dashboard', cek_login, c_dashboard.index)
 app.get('/produk', cek_login, c_master_produk.index)
 app.get('/produk/tambah', cek_login, c_master_produk.form_tambah)
-app.post('/produk/insert', cek_login, c_master_produk.insert)
+app.post('/produk/insert', cek_login, c_master_produk.validasi_insertProduk, c_master_produk.insert)
 
 // buat sendiri
 app.get('/karyawan', cek_login, c_karyawan.index)
