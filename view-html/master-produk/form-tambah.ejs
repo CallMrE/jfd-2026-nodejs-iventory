@@ -5,7 +5,7 @@
 
         <h1>Tambah Produk Baru</h1>
 
-        <form action="/produk/insert" method="post">
+        <form action="/produk/insert" method="post" enctype="multipart/form-data">
           <div class="row">
             <div class="col-md-6">
               <div class="mb-3">
@@ -24,10 +24,43 @@
                 </textarea>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Foto Produk</label><br>
+                <input type="file" name="form_upload_foto" id="add_foto">
+                <div id="preview_foto" class="align-items-center"></div>
+              </div>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary">
             <i class="fa-solid fa-save"></i>Simpan
           </button>
         </form>
+        <script>
+          $('#add_foto').on('change', function () {
+            let add_foto = $('#add_foto').val()
+            if (this.files[0]) {
+              let type = this.files[0].type
+              let size = this.files[0].size
+              let maxsize = (5120 * 1024)
+              if (size > maxsize) {
+                $('#submit_edit_foto').prop('disabled', true)
+                $('#preview_foto').empty()
+                $('#edit_infouploadfoto').empty().append(`<i class="fe fe-16 fe-alert-triangle text-danger"></i> <span class="text-danger">File size exceeds the limit: 5 MB.</span>`)
+              } else {
+                $('#submit_edit_foto').prop('disabled', false)
+                $('#edit_infouploadfoto').empty()
+                if (add_foto && type.split('/')[0] == 'image') {
+                  $('#preview_foto').empty().append(
+                    `<img src="${window.URL.createObjectURL(this.files[0])}" class="w-100" alt="foto profil user">`
+                  )
+                }
+              }
+            } else {
+              $('#submit_edit_foto').prop('disabled', false)
+              $('#preview_foto').empty()
+            }
+          })
+        </script>
 
         <%- include('../layout/footer') %>

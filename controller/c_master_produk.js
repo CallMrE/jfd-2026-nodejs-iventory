@@ -1,6 +1,7 @@
 const {body, query, validationResult} = require('express-validator')
 const m_produk = require('../model/m_produk')
 const moment = require('moment')
+const path  = require('path')
 
 let validasi_insertProduk = [
     body('form_kode_barang')
@@ -35,7 +36,27 @@ module.exports =
             })
         }
         try{
-            let proses_insert = await m_produk.insert_1_produk(req)
+            console.log(req.body);
+            console.log(req.files);
+            let foto = req.files.form_upload_foto
+            let filename = ''
+            if (foto) {
+                // ganti nama file asli
+                let kode_barang     = req.body.form_kode_barang
+                let datetime        = moment().format('YYMMDD_HHmmss')
+                let extension_name  = path.extname(foto.name)
+                filename            = kode_barang + '-' + datetime + extension_name
+                let folder_simpan   = path.join(__dirname, '../public/upload-image', filename)
+
+                // pakai function mv() untuk meletakkan file di suatu folder/direktori
+                foto.mv(folder_simpan, async function(errorUpload) {
+                    // jika upload gagal
+                    if (errorUpload) {
+                        return res.status(500).send(err)
+                    }
+                })
+            }
+            let proses_insert = await m_produk.insert_1_produk(req, filename)
             if (proses_insert.affectedRows > 0) {
            res.redirect('/produk?success_msg=berhasil input produk baru a/n '+ req.body.form_nama_barang)
             }

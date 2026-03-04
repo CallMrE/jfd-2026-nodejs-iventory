@@ -3,6 +3,7 @@ const app       = express()
 const port      = 3000
 const passport  = require('passport')
 const session   = require('express-session')
+const fileUpload    = require('express-fileupload')
 
 const c_beranda = require('./controller/c_beranda')
 const c_auth    = require('./controller/c_auth')
@@ -25,6 +26,7 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use( fileUpload() )
 
 app.use( express.urlencoded({extended:false}) )
 app.set('view engine', 'ejs')
