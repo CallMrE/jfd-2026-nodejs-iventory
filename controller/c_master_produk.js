@@ -52,7 +52,7 @@ module.exports =
                 foto.mv(folder_simpan, async function(errorUpload) {
                     // jika upload gagal
                     if (errorUpload) {
-                        return res.status(500).send(err)
+                        return res.status(500).send(errorUpload)
                     }
                 })
             }
@@ -71,4 +71,5 @@ module.exports =
             res.redirect('/produk/tambah?error_msg=' + objek_error)
         }
     },
+    
 }

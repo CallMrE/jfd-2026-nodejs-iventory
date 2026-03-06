@@ -24,7 +24,7 @@ module.exports =
             })
         })
     },
-  insert_1_produk: function (re, filename) {
+  insert_1_produk: function (req, filename) {
         let sql = mysql.format(
             'INSERT INTO master_produk SET ?',
             [{

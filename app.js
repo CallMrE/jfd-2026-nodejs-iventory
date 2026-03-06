@@ -8,9 +8,12 @@ const fileUpload    = require('express-fileupload')
 const c_beranda = require('./controller/c_beranda')
 const c_auth    = require('./controller/c_auth')
 const cek_login = c_auth.cek_login
-const c_dashboard= require('./controller/c_dashboard')
+
+const c_dashboard   = require('./controller/c_dashboard')
 const c_master_produk   = require('./controller/c_master_produk')
-const c_karyawan = require('./controller/c_karyawan')
+const c_stok_masuk   = require('./controller/c_stok_masuk')
+
+const c_karyawan    = require('./controller/c_karyawan')
 
 app.use(session({
     secret: 'secret',
@@ -43,8 +46,12 @@ app.get('/produk', cek_login, c_master_produk.index)
 app.get('/produk/tambah', cek_login, c_master_produk.form_tambah)
 app.post('/produk/insert', cek_login, c_master_produk.validasi_insertProduk, c_master_produk.insert)
 
+app.get('/stok-masuk', c_stok_masuk.index)
+
 // buat sendiri
 app.get('/karyawan', cek_login, c_karyawan.index)
+
+
 
 
 app.listen(port, ()=>{
