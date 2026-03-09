@@ -8,12 +8,9 @@ const fileUpload    = require('express-fileupload')
 const c_beranda = require('./controller/c_beranda')
 const c_auth    = require('./controller/c_auth')
 const cek_login = c_auth.cek_login
-
 const c_dashboard   = require('./controller/c_dashboard')
 const c_master_produk   = require('./controller/c_master_produk')
 const c_stok_masuk   = require('./controller/c_stok_masuk')
-
-const c_karyawan    = require('./controller/c_karyawan')
 
 app.use(session({
     secret: 'secret',
@@ -36,23 +33,17 @@ app.set('view engine', 'ejs')
 app.set('views', './view-html')
 app.use(express.static('public'))
 
-
 app.get('/', c_beranda.index)
 app.get('/login', c_auth.form_login)
 app.post('/auth/proses-login', c_auth.proses_login)
 
 app.get('/dashboard', cek_login, c_dashboard.index)
 app.get('/produk', cek_login, c_master_produk.index)
-app.get('/produk/tambah', cek_login, c_master_produk.form_tambah)
+app.get('/produk/create', cek_login, c_master_produk.form_tambah)
 app.post('/produk/insert', cek_login, c_master_produk.validasi_insertProduk, c_master_produk.insert)
 
 app.get('/stok-masuk', c_stok_masuk.index)
-
-// buat sendiri
-app.get('/karyawan', cek_login, c_karyawan.index)
-
-
-
+app.post('/stok-masuk/insert', cek_login, c_stok_masuk.validasi_stok_masuk, c_stok_masuk.insert)
 
 app.listen(port, ()=>{
     console.log(`Aplikasi sudah siap, buka http://localhost:${port}`)

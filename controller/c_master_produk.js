@@ -7,7 +7,7 @@ let validasi_insertProduk = [
     body('form_kode_barang')
     .notEmpty().withMessage('Kode Barang tidak boleh kosong')
     .isAlphanumeric().withMessage('Kode Barang hanya menerima Huruf & Angka')
-    .isLength({min:10, max: 10}).withMessage('Kode Barang harus 10 karakter')
+    .isLength({min:5, max: 10}).withMessage('Kode Barang harus 10 karakter')
 ]
 
 module.exports =
@@ -35,9 +35,7 @@ module.exports =
                 pesan_validasi_error: validasi.array()
             })
         }
-        try{
-            console.log(req.body);
-            console.log(req.files);
+        try{         
             let foto = req.files.form_upload_foto
             let filename = ''
             if (foto) {
@@ -68,7 +66,7 @@ module.exports =
             } else {
                 objek_error = JSON.stringify(error)
             }
-            res.redirect('/produk/tambah?error_msg=' + objek_error)
+            res.redirect('/produk/create?error_msg=' + objek_error)
         }
     },
     
