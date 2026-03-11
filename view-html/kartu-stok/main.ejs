@@ -1,0 +1,105 @@
+<%- include('../layout/menu-atas') %>
+  <%- include('../layout/menu-kiri') %>
+    <%- include('../layout/notif-message') %>
+      <%- include('../layout/notif-validasi-error') %>
+
+        <h1>Kartu Stok</h1>
+        <hr>
+        <div class="row mb-5">
+          <div class="col-6">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <%= (req.params.kode_produk) ? req.params.kode_produk : 'Pilih Kode Produk' %>
+              </button>
+              <ul class="dropdown-menu">
+                <% for( let i=0; i < produk.length; i++ ) { %>
+                  <li>
+                    <a class="dropdown-item <%= (req.params.kode_produk == produk[i].kode) ? 'bg-info' : '' %>"
+                      href="/kartu-stok/<%= produk[i].kode %>">
+                      <%= produk[i].kode %> - <%= produk[i].nama %>
+                    </a>
+                  </li>
+                  <% } %>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <% if (stok_barang.length> 0) { %>
+          <div class="row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-3">Kode Produk</div>
+                <div class="col-6">: <%= stok_barang[0].kode %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">Nama Produk</div>
+                <div class="col-6">: <%= stok_barang[0].nama_produk %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <table id="table_kartu_stok" class="table table-striped table-hover mt-4">
+            <thead>
+              <tr>
+                <th class="text-capitalize">tanggal</th>
+                <th class="text-capitalize">masuk</th>
+                <th class="text-capitalize">keluar</th>
+                <th class="text-capitalize">sisa</th>
+                <th class="text-capitalize">user</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for( let i=0; i < stok_barang.length; i++ ) { %>
+                <tr>
+                  <td>
+                    <%= moment(stok_barang[i].created_at).format('DD MMMM YYYY - HH:mm') %>
+                  </td>
+                  <td>
+                    <%= stok_barang[i].stok_masuk %>
+                  </td>
+                  <td>
+                    <%= stok_barang[i].stok_keluar %>
+                  </td>
+                  <td>
+                    <%= stok_barang[i].stok_sisa %>
+                  </td>
+                  <td>
+                    <%= stok_barang[i].username %>
+                  </td>
+                </tr>
+                <% } %>
+            </tbody>
+          </table>
+          <% } else { %>
+            <div class="row">
+              <div class="col-12">
+                <h3>Data stok barang belum tersedia</h3>
+              </div>
+            </div>
+            <% } %>
+              <script src="/datatables-2.3.7/js/dataTables.js"></script>
+              <script src="/datatables-2.3.7/js/dataTables.bootstrap5.js"></script>
+              <script src="/datatables-2.3.7/js/dataTables.buttons.js"></script>
+              <script src="/datatables-2.3.7/js/buttons.dataTables.js"></script>
+              <script src="/datatables-2.3.7/js/jszip.min.js"></script>
+              <script src="/datatables-2.3.7/js/pdfmake.min.js"></script>
+              <script src="/datatables-2.3.7/js/vfs_fonts.js"></script>
+              <script src="/datatables-2.3.7/js/buttons.html5.min.js"></script>
+              <script src="/datatables-2.3.7/js/buttons.print.min.js"></script>
+
+              <script>
+                new DataTable('#table_kartu_stok', {
+                  layout: {
+                    topStart: {
+                      buttons: ['copy', 'csv', 'excel', 'print']
+                    }
+                  }
+                  // dom: 'lBfrtip'
+                })
+              </script>
+
+              <%- include('../layout/footer') %>

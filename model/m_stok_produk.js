@@ -31,7 +31,7 @@ module.exports =
             FROM stok_produk AS s
             JOIN master_produk AS mp ON mp.kode = s.kode
             JOIN user AS u ON u.id = s.created_by
-            WHERE s.kode = ? ORDER BY id ASC;`, [kode_produk]
+            WHERE s.kode = ?`, [kode_produk]
         )
 
         return new Promise( function(resolve,reject) {
