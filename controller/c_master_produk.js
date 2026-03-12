@@ -18,14 +18,17 @@ module.exports =
             data_produk: await m_produk.get_semua_produk()
         })
     },
+    detil: async function (req,res) {
+        res.render('master-produk/detil',{
+            req: req,
+        })
+    },
     form_tambah: async function (req,res) {
         res.render('master-produk/form-tambah',{
             req: req,
         })
     },
-
     validasi_insertProduk,
-    
     insert: async function (req,res) {
         let validasi = validationResult(req)
         // jika validasi gagal

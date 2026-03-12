@@ -90,4 +90,25 @@ module.exports =
             })
         })
     },
+    get_stok_terakhir_semua_produk: function() {
+        let sql = mysql.format(
+            `SELECT t1.* 
+            FROM stok_produk AS t1 
+            INNER JOIN ( 
+                SELECT kode, MAX(id) AS id_terakhir 
+                FROM stok_produk GROUP BY kode ) AS t2 
+            ON t1.id = t2.id_terakhir 
+            WHERE t1.stok_sisa <= 10`
+        )
+
+        return new Promise( function(resolve,reject) {
+            db.query(sql, function(errorSql, hasil) {
+                if (errorSql) {
+                    reject(errorSql)
+                } else {
+                    resolve(hasil)
+                }
+            })
+        })
+    },
 }

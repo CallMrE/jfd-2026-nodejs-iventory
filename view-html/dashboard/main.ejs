@@ -1,6 +1,21 @@
 <%- include('../layout/menu-atas') %>
   <%- include('../layout/menu-kiri') %>
-
-    <h1>Dashboard</h1>
-
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        Stok Terakhir
+      </div>
+      <ul class="list-group list-group-flush">
+        <% for( let i=0; i < stok_terakhir.length; i++ ) { %>
+          <li class="list-group-item">
+            <a href="/kartu-stok/<%= stok_terakhir[i].kode %>">
+              <%= stok_terakhir[i].kode %>
+            </a>
+            <span
+              class="badge <%= (stok_terakhir[i].stok_sisa <= 10) ? 'text-bg-danger' : 'text-bg-secondary' %> float-end">
+              <%= stok_terakhir[i].stok_sisa %>
+            </span>
+          </li>
+          <% } %>
+      </ul>
+    </div>
     <%- include('../layout/footer') %>
