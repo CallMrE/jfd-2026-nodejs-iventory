@@ -42,6 +42,9 @@ app.post('/auth/proses-login', c_auth.proses_login)
 
 app.get('/dashboard', cek_login, c_dashboard.index)
 app.get('/produk', cek_login, c_master_produk.index)
+app.get('/produk/detail/:id_pro', cek_login, c_master_produk.detail)
+// app.get('/produk/edit', cek_login, c_master_produk.form_edit)
+// app.get('/produk/hapus', cek_login, c_master_produk.hapus)
 app.get('/produk/create', cek_login, c_master_produk.form_tambah)
 app.post('/produk/insert', cek_login, c_master_produk.validasi_insertProduk, c_master_produk.insert)
 

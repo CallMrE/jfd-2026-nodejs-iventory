@@ -18,9 +18,11 @@ module.exports =
             data_produk: await m_produk.get_semua_produk()
         })
     },
-    detil: async function (req,res) {
-        res.render('master-produk/detil',{
+    detail: async function (req,res) {
+        let id_pro = req.params.id_pro
+        res.render('master-produk/detail-produk',{
             req: req,
+            detail_produk: await m_produk.get_detail_1_produk(id_pro)
         })
     },
     form_tambah: async function (req,res) {

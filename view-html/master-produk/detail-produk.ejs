@@ -1,0 +1,28 @@
+<%- include('../layout/menu-atas') %>
+  <%- include('../layout/menu-kiri') %>
+    <h3>Deatail Produk</h1>
+      <div class="continer">
+        <div class="row">
+          <div class="col-md-6">
+            <% if (detail_produk.length> 0) { %>
+              <ul>
+                <li>Kode: <%= detail_produk[0].kode %>
+                </li>
+                <li>Nama: <%= detail_produk[0].nama %>
+                </li>
+                <li>Deskripsi: <%= detail_produk[0].deskripsi %>
+                </li>
+              </ul>
+          </div>
+          <div class="col-sm-3 text-center">
+            <ul>
+              Foto Produk
+              <img src="/upload-image/<%= detail_produk[0].foto %>" width="auto">
+            </ul>
+          </div>
+        </div>
+      </div>
+      <% } else { %>
+        <h2>profil tidak ditemukan</h2>
+        <% } %>
+          <%- include('../layout/footer') %>
