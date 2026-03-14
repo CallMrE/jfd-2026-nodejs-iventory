@@ -4,7 +4,8 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'jfd_jan2026'
+    database: 'jfd_jan2026',
+    multipleStatements: true,
 })
 db.connect()
 
@@ -68,7 +69,7 @@ module.exports =
                 kode        : req.body.form_kode_barang.toUpperCase(),
                 nama        : req.body.form_nama_barang.toUpperCase(),
                 deskripsi   : req.body.form_deskripsi,
-                foto        : req.body.form_upload_foto,
+                foto        : filename,
             },
             req.params.id_pro
         ]
@@ -83,4 +84,19 @@ module.exports =
                 })
             })
   },
+  delete_1_produk: function(id_pro) {
+        let sql = mysql.format(
+             'INSERT INTO master_produk_hapus SELECT * FROM master_produk WHERE id = ? ; DELETE FROM master_produk WHERE id=?',
+             [id_pro,id_pro]
+        )
+        return new Promise( function(resolve,reject) {
+            db.query(sql, function(errorSql, hasil) {
+                if (errorSql) {
+                    reject(errorSql)
+                } else {
+                    resolve(hasil)
+                }
+            })
+        })
+    },
 }
