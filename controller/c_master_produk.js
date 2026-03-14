@@ -95,26 +95,18 @@ module.exports = {
       res.redirect("/produk/create?error_msg=" + objek_error);
     }
   },
-
   proses_update: async (req, res) => {
-    let validasi = validationResult(req);
-    // jika validasi gagal
-    if (validasi.errors.length > 0) {
-      return res.render("master-produk/form-edit", {
-        req: req,
-        pesan_validasi_error: validasi.array(),
-      });
-    }
     try {
       let id_pro = req.params.id_pro;
-      let foto_lama = detail_produk[0].foto; // Ambil nama file lama dari DB
-      let foto = req.files && req.files.form_upload_foto;
-      let filename = foto_lama; // Default gunakan foto lama
       let detail_produk = await m_produk.get_1_produk(id_pro);
+      let foto_lama = detail_produk[0].foto; // Ambil nama file lama dari DB
+
+      let filename = foto_lama; // Default gunakan foto lama
+
       // Cek apakah ada file baru yang diunggah
-      if (foto) {
-        let kode_barang = req.body.form_kode_barang;
+      if (req.files && req.files.form_upload_foto) {
         let foto = req.files.form_upload_foto;
+        let kode_barang = req.body.form_kode_barang;
         let datetime = moment().format("YYMMDD_HHmmss");
         let extension_name = path.extname(foto.name);
         filename = kode_barang + "-" + datetime + extension_name;

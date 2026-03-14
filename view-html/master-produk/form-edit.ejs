@@ -29,7 +29,7 @@
                 <input type="file" name="form_upload_foto" id="add_foto">
                 <div id="preview_foto" class="align-items-center">
                   <% if (detail_produk[0].foto) { %>
-                    <img src="/uploads/<%= detail_produk[0].foto %>" class="w-100" id="current_img">
+                    <img src="/upload-image/<%= detail_produk[0].foto %>" class="w-100" id="current_img">
                     <% } %>
                 </div>
               </div>
