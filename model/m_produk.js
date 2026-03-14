@@ -1,3 +1,4 @@
+
 const mysql = require('mysql2')
 const db = mysql.createConnection({
     host: 'localhost',
@@ -23,7 +24,7 @@ module.exports =
             })
         })
     },
-    get_detail_1_produk: function(id_pro) {
+    get_1_produk: function(id_pro) {
         let sql = mysql.format(
              'SELECT * FROM master_produk WHERE id = ?',
              [id_pro]
@@ -48,6 +49,29 @@ module.exports =
                 deskripsi   : req.body.form_deskripsi,
                 foto        : (filename) ? filename : null,
             }]
+        )
+            return new Promise( function(resolve,reject) {
+                db.query(sql, function(errorSql, hasil) {
+                    if (errorSql) {
+                        reject(errorSql)
+                    } else {
+                        resolve(hasil)
+                    }
+                })
+            })
+  },
+  update_1_produk: function (req, filename) {
+        let sql = mysql.format(
+            'UPDATE master_produk SET ? WHERE id=?',
+            [{
+                // kolom_sql: form_html
+                kode        : req.body.form_kode_barang.toUpperCase(),
+                nama        : req.body.form_nama_barang.toUpperCase(),
+                deskripsi   : req.body.form_deskripsi,
+                foto        : req.body.form_upload_foto,
+            },
+            req.params.id_pro
+        ]
         )
             return new Promise( function(resolve,reject) {
                 db.query(sql, function(errorSql, hasil) {

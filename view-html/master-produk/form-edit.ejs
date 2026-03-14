@@ -3,31 +3,32 @@
     <%- include('../layout/notif-message') %>
       <%- include('../layout/notif-validasi-error') %>
 
-        <h1>Tambah Produk Baru</h1>
+        <h1>Edit Produk</h1>
 
-        <form action="/produk/insert" method="post" enctype="multipart/form-data">
+        <form action="/produk/update/<%= detail_produk[0].id %>" method="post" enctype="multipart/form-data">
           <div class="row">
             <div class="col-md-6">
               <div class="mb-3">
                 <label class="form-label">Kode barang</label>
                 <input type="text" name="form_kode_barang"
                   class="form-control <%= (typeof pesan_validasi_error !== 'undefined' && pesan_validasi_error[0].path == 'form_kode_barang') ? 'is-invalid' : '' %>"
-                  value="<%= (typeof pesan_validasi_error !== 'undefined' && pesan_validasi_error[0].path == 'form_kode_barang') ? pesan_validasi_error[0].value : '' %>">
+                  value="<%= detail_produk[0].kode %><%= (typeof pesan_validasi_error !== 'undefined' && pesan_validasi_error[0].path == 'form_kode_barang') ? pesan_validasi_error[0].value : '' %>">
               </div>
               <div class="mb-3">
                 <label class="form-label">Nama barang</label>
-                <input type="text" name="form_nama_barang" class="form-control">
+                <input type="text" name="form_nama_barang" class="form-control" value="<%= detail_produk[0].nama %>">
               </div>
               <div class="mb-3">
                 <label class="form-label">Deskripsi</label>
-                <textarea name="form_deskripsi" class="form-control"></textarea>
+                <textarea name="form_deskripsi" class="form-control"><%= detail_produk[0].deskripsi %></textarea>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class=" col-md-6">
               <div class="mb-3">
                 <label class="form-label">Foto Produk</label><br>
-                <input type="file" name="form_upload_foto" id="add_foto">
-                <div id="preview_foto" class="align-items-center"></div>
+                <input type="file" name="form_upload_foto">
+                <div id="preview_foto" class="align-items-center">
+                </div>
               </div>
             </div>
           </div>
@@ -64,5 +65,4 @@
             }
           })
         </script>
-
         <%- include('../layout/footer') %>

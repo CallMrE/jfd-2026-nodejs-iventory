@@ -1,4 +1,4 @@
-const {body, query, validationResult} = require('express-validator')
+const {body, query, validationResult, ExpressValidator} = require('express-validator')
 const m_produk = require('../model/m_produk')
 const moment = require('moment')
 const path  = require('path')
@@ -22,7 +22,7 @@ module.exports =
         let id_pro = req.params.id_pro
         res.render('master-produk/detail-produk',{
             req: req,
-            detail_produk: await m_produk.get_detail_1_produk(id_pro)
+            detail_produk: await m_produk.get_1_produk(id_pro)
         })
     },
     form_tambah: async function (req,res) {
@@ -74,5 +74,21 @@ module.exports =
             res.redirect('/produk/create?error_msg=' + objek_error)
         }
     },
-    
+    form_edit: async function (req,res) {
+        let id_pro = req.params.id_pro
+        res.render('master-produk/form-edit',{
+            req: req,
+            detail_produk: await m_produk.get_1_produk(id_pro)
+        })
+    },
+    proses_update: async (req,res)=>{
+    try {
+        let proses_update = await m_produk.update_1_produk(req)
+        if (proses_update.affectedRows > 0) {
+            res.redirect('/produk?success_msg=berhasil update data produk a/n '+ req.body.form_nama_barang)
+        }
+    } catch (error) {
+        res.redirect(`/produk/edit/${req.params.id_pro}?error_msg=` + error.errno +': '+ error.sqlMessage)
+    }
+    },
 }
