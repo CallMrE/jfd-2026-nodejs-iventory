@@ -144,11 +144,14 @@ module.exports = {
   },
   hapus: async (req, res) => {
     let id_pro = req.params.id_pro;
+    let data_produk = await m_produk.get_1_produk(id_pro);
+    let nama = data_produk[0].nama;
+
     let proses_hapus = await m_produk.delete_1_produk(id_pro);
-    if (proses_hapus.affectedRows > 0) {
+
+    if (proses_hapus[1].affectedRows > 0) {
       res.redirect(
-        "/produk?success_msg=berhasil hapus data produk a/n " +
-          req.body.form_nama_barang,
+        "/produk?success_msg=berhasil hapus data produk a/n " + nama,
       );
     }
   },
