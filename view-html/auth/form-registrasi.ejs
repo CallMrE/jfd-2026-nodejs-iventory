@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <title>Inventpry - Elgy</title>
+  <link href="bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="sign-in.css" rel="stylesheet" />
+  <script src="bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+</head>
+
+<body class="d-flex align-items-center py-4 bg-body-tertiary">
+  <main class="form-signin w-100 m-auto">
+    <form action="/proses-registrasi" method="post">
+      <img class="mb-4" src="images/26jan26.PNG" alt="" width="80" height="57" />
+      <h1 class="h3 mb-3 fw-normal">Registrasi</h1>
+      <div class="form-floating">
+        <input type="text" name="form_username" class="form-control" id="floatingInput" placeholder="Username"
+          required />
+        <label for="floatingInput">Username</label>
+      </div>
+      <br>
+      <div class="form-floating">
+        <input type="password" name="form_password" class="form-control" id="floatingPassword" placeholder="Password"
+          required />
+        <label for="floatingPassword">Password</label>
+      </div>
+      <br>
+      <div class="form-floating">
+        <input type="text" name="form_id" class="form-control" id="floatingInput" placeholder="Id" required />
+        <label for="floatingInput">ID</label>
+      </div>
+      <br>
+      <div class="form-floating">
+        <input type="text" name="form_role" class="form-control" id="floatingInput" placeholder="Role" required />
+        <label for="floatingInput">Role</label>
+      </div>
+      <br><br>
+      <div style="display: flex; gap: 15px;">
+        <a href="/registrasi" class="btn btn-secondary w-100 py-2">
+          <button type="submit">Sing Up</button>
+        </a>
+        <a href="/login" style="text-decoration: none;">
+          <button type="button">Kembali ke Login</button>
+        </a>
+      </div>
+      <p class="mt-5 mb-3 text-body-secondary text-center">&copy; 2026</p>
+    </form>
+  </main>
+</body>
+
+</html>

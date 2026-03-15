@@ -1,26 +1,34 @@
-const mysql = require('mysql2')
+const mysql = require("mysql2");
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'jfd_jan2026'
-})
-db.connect()
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "jfd_jan2026",
+});
+db.connect();
 
-module.exports =
-{
+module.exports = {
   get_1_username: function (form_username) {
-       let sql = mysql.format(
-                'SELECT * FROM user WHERE username = ?', [form_username]
-            )
-            return new Promise( function(resolve,reject) {
-                db.query(sql, function(errorSql, hasil) {
-                    if (errorSql) {
-                        reject(errorSql)
-                    } else {
-                        resolve(hasil)
-                    }
-                })
-            })
-  }
-}
+    let sql = mysql.format("SELECT * FROM user WHERE username = ?", [
+      form_username,
+    ]);
+    return new Promise(function (resolve, reject) {
+      db.query(sql, function (errorSql, hasil) {
+        if (errorSql) {
+          reject(errorSql);
+        } else {
+          resolve(hasil);
+        }
+      });
+    });
+  },
+  insert_user: function (data_baru) {
+    let sql = mysql.format("INSERT INTO user SET ?", [data_baru]);
+    return new Promise(function (resolve, reject) {
+      db.query(sql, (err, hasil) => {
+        if (err) reject(err);
+        else resolve(hasil);
+      });
+    });
+  },
+};
